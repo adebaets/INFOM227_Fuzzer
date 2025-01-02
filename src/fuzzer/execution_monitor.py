@@ -14,3 +14,5 @@ def run_emulator(emulator_path, rom_file):
         return result
     except subprocess.TimeoutExpired:
         print(f"Timeout occurred for ROM: {rom_file}")
+
+

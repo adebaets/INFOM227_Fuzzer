@@ -1,3 +1,5 @@
 subprocess
 os
 random
+argparse
+fuzzingbook
