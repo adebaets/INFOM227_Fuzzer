@@ -3,7 +3,7 @@ from src.fuzzer.mutation_fuzzer import mutate_rom
 from src.fuzzer.execution_monitor import run_emulator
 import argparse
 
-# Command-line interface setup
+# command line setup
 def parse_args():
     parser = argparse.ArgumentParser(description="Fuzz NES Emulator with Grammar-based and Mutation-based testing")
     parser.add_argument("emulator_path", help="Path to the emulator binary")
@@ -15,31 +15,26 @@ def parse_args():
     return parser.parse_args()
 
 
-# Main function to execute the tests
 def main():
     args = parse_args()
 
-    # Use the provided emulator path
     emulator_path = args.emulator_path
     valid_rom_path = args.valid_rom_path
     generated_roms_path = args.generated_roms_path
     mutated_roms_path = args.mutated_roms_path
     num_tests = args.num_tests
 
-    # Ensure the directories exist
-    os.makedirs(generated_roms_path, exist_ok=True)
-    os.makedirs(mutated_roms_path, exist_ok=True)
 
-    # Grammar-based generation using fuzzingbook
+    # Grammar-based generation
     for _ in range(num_tests):
         print("Generating new ROM...")
-        new_rom = generate_input()
+        new_rom = generate_input(generated_roms_path)
         run_emulator(emulator_path, new_rom)
 
-    # Mutation-based testing using fuzzingbook
+    # Mutation-based testing
     for _ in range(num_tests):
         print("Mutating ROM...")
-        mutated_rom = mutate_rom(valid_rom_path)
+        mutated_rom = mutate_rom(valid_rom_path, mutated_roms_path)
         run_emulator(emulator_path, mutated_rom)
 
 
