@@ -7,7 +7,7 @@ def run_emulator(emulator_path, rom_file):
                                 stderr=subprocess.PIPE,
                                 timeout=5)
         if result.returncode != 0:
-            with open("logs/crash_logs/crash_log.txt", "a") as log:
+            with open("./logs/crash_logs/crash_log.txt", "a") as log:
                 log.write(f"ROM: {rom_file}\n")
                 log.write(f"Stderr: {result.stderr.decode()}\n")
             print(f"Crash detected: {rom_file}")
